@@ -95,6 +95,10 @@ app.listen(port,(req,res)=>{
     console.log("Bhanjao Bhanjao");
 });
 
+app.get("/",(req,res)=>{
+    res.redirect("/listings");
+});
+
 //404
 app.use((req,res,next)=>{
     next(new ExpressError(404,"Page Not Found!"));
