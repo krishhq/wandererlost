@@ -1,0 +1,67 @@
+<% layout("/layout/boilerplate") %>
+<script>
+    const mapToken="<%= process.env.MAP_TOKEN %>";
+    const coordinates= <%- JSON.stringify(data.geometry.coordinates) %>;
+</script>
+<body>
+    <h3><%= data.title %></h3>
+    <div class="row mt-3">
+        <div class="card col-6">
+            <img src="<%= data.image.url %>" class="card-img-top show-img" alt="listing-image">
+            <div class="card-body">
+                <p class="card-text">
+                    <p>Owner: <%= data.owner.username %></p>
+                    <br>
+                    <%= data.description %>
+                    <br>
+                    <%= Number(data.price).toLocaleString("hi-IN", {maximumSignificantDigits: 3, style: 'currency', currency: 'INR'}) %>
+                    <br>
+                    <%= data.location %>
+                    <br>
+                    <%= data.country %>
+                    <!-- <li> <%= %></li> image  -->
+                </p>
+            </div>
+        </div>
+        <div class="btns">
+            <% if(currUser && currUser._id.equals(data.owner._id)){ %>
+                <form action="/listings/<%= data._id%>/edit" method="GET">
+                    <button class="btn btn-dark col-1">Edit Details</button>
+                </form>
+            <% } %>
+                <br>
+            <form action="/listings/<%= data._id%>/review" method="GET">
+                <button class="btn btn-dark">Write Review</button>
+            </form>
+                <br>
+            <% if(currUser && currUser._id.equals(data.owner._id)){ %>
+                <form action="/listings/<%= data._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">Delete Listing</button>
+                </form>
+            <% } %>
+        </div>
+        <div>
+            <%for(rev of data.reviews){ %>
+                <hr>
+                <div class="row col-5 mb-3 ms-2">
+                    <div class="card rev-card">
+                        <div class="card-body">
+                            <h5 class="card-title">@<%= rev.author.username %></h5>
+                            <p class="card-text">Review: <%= rev.comment %></p>
+                            <p class="card-text">Rating: <%= rev.rating %> Star</p>
+                            <p class="starability-result" data-rating="<%= rev.rating %>"></p>
+                            <form action="/listings/<%= data._id %>/review/<%= rev._id %>?_method=DELETE" method="POST">
+                                <button class="btn btn-danger">Delete Review</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        <div class="row col-5 mb-3 ms-2">
+            <h3>Where You'll Be</h3>
+            <div id="map"></div>
+        </div>
+    </div>
+<script src="/js/map.js"></script>
+</body>

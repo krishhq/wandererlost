@@ -1,0 +1,24 @@
+<% layout("/layout/boilerplate") %>
+<body>
+    <h3>All Listings @WanderLust</h3>
+    <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1">
+        <% for(let listing of list){ %>
+            <a class="card-anchor" href="/listings/<%= listing._id %>">
+            <div class="card" style="width: 20rem;">
+                <img src="<%= listing.image.url %>" style="height:20rem" class="card-img-top" alt="...">
+                <div class="card-img-overlay"></div>
+                <div class="card-body">
+                    <p class="card-text">
+                    <b><%= listing.title %></b>
+                    <br>
+                    <%= Number(listing.price).toLocaleString("hi-IN", {maximumSignificantDigits: 3, style: 'currency', currency: 'INR'}) %>/night
+                    </p>
+                </div>
+            </div>
+            </a>
+        <% } %>
+    </div>
+    <form action="/listings/new" method="GET">
+        <button>List New Propety</button>
+    </form>
+</body>

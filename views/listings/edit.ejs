@@ -1,0 +1,44 @@
+<% layout("/layout/boilerplate") %>
+<body>
+    <h3>Edit Your Property Details</h3>
+    <div class="row mt-3">
+        <div class="col-8 offset-2">
+            <form action="/listings/<%= data._id %>" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Property Title:</label>
+                    <input name="listing[title]" class="form-control" value="<%= data.title %>" id="title" type="text" required>
+                    <div class="invalid-feedback">Title cannot be empty.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <input name="listing[description]" class="form-control" value="<%= data.description %>" id="description" type="text" required>
+                    <div class="invalid-feedback">Description cannot be empty.</div>
+                </div>
+                <div class="mb-3">
+                    <p>Current Image:</p>
+                    <p><img src="<%= reducedImage %>" alt="currentListingImage"/></p>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Listing image:</label>
+                    <input id="image" name="listing[image]" class="form-control" type="file">
+                    <div class="invalid-feedback">Listing image cannot be empty.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price:</label>
+                    <input id="price" name="listing[price]" class="form-control" value="<%= data.price %>" type="number" required>
+                    <div class="invalid-feedback">Price cannot be empty.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location:</label>
+                    <input id="location" name="listing[location]" class="form-control" value="<%= data.location %>" type="text" required>
+                    <div class="invalid-feedback">Location cannot be empty.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="country" class="form-label">Country:</label>
+                    <input id="country" name="listing[country]" class="form-control" value="<%= data.country %>" type="text" required>
+                </div>
+                <button class="btn edit-btn btn-dark mt-3">Edit</button>
+            </form>    
+        </div>
+    </div>
+</body>
